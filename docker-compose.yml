@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  shorturl-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      ALLOWED_IPS: "127.0.0.1,0.0.0.0,172.20.0.1"
+    volumes:
+      - ./data:/app/data
+    restart: always
+
