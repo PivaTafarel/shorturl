@@ -29,7 +29,9 @@ def is_valid_shortcode(key):
 
 @app.before_request
 def restrict_ips():
-    if request.remote_addr in ALLOWED_IPS:
+    remote_addr = request.headers.get('X-Forwarded-For', request.remote_addr)
+
+    if remote_addr in ALLOWED_IPS:
         return
 
     for pattern, method in PUBLIC_ROUTES:
